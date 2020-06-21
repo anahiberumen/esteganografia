@@ -1,0 +1,112 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Importa bootstrap y sus dependencias jquery y popper -->
+        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'popper.min.js' %}"></script>
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+
+        <title>Proyecto Final</title>
+    </head>
+
+    <body style="background-color: #222222;">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light"
+            style="background-color: #FFB6C1;">
+            <a class="navbar-brand" href="{% url 'esteganografia' %}">
+                <h5><i>Steganography</i></h5>
+            </a>
+            <button class="navbar-toggler" type="button" 
+                data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" 
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+
+        <!-- Contenido de la pagina -->
+        <div class="container pt-3">
+            <!-- Formulario para cifrado -->
+            <div class="jumbotron shadow">
+                <h1 class="display-4">Cifrar</h1>
+                <p class="lead">Cifra el mensaje con el algoritmo ALGORITMO 
+                    y oculta el mensaje cifrado dentro de la imagen</p>
+                <hr>
+                <form action="{% url 'cifrar' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-3 form-group">
+                            <h6><i><b>Selecciona la imagen</b></i></h6>
+                            {{ form_cifrado.imagen }}
+                            {% for error in form_cifrado.imagen.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <h6><i><b>Escribe la llave secreta</b></i></h6>
+                            {{ form_cifrado.llave_secreta }}
+                            {% for error in form_cifrado.llave_secreta.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <h6><i><b>Escribe el mensaje a cifrar</b></i></h6>
+                            {{ form_cifrado.mensaje_cifrar }}
+                            {% for error in form_cifrado.mensaje_cifrar.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                            <button class="btn btn-sm btn-primary float-right">Cifrar</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+
+            <!-- Formulario para descifrado -->
+            <div class="jumbotron shadow">
+                <h1 class="display-4">Descifrar</h1>
+                <p class="lead">Busca dentro de la imagen un mensaje oculto y 
+                    lo descifra con el algoritmo ALGORITMO</p>
+                <hr>
+                <form action="{% url 'descifrar' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <h6><i><b>Selecciona la imagen</b></i></h6>
+                            {{ form_descifrado.imagen }}
+                            {% for error in form_descifrado.imagen.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <h6><i><b>Escribe la llave secreta</b></i></h6>
+                            {{ form_descifrado.llave_secreta }}
+                            {% for error in form_descifrado.llave_secreta.errors %}
+                                <div class="alert alert-danger">
+                                    <strong>{{ error|escape }}</strong>
+                                </div>
+                            {% endfor %}
+                            <button class="btn btn-sm btn-primary float-right">Cifrar</button>
+                        </div>
+                    </div>
+                </form>
+                
+            </div>
+        </div>
+    </body>
+</html>

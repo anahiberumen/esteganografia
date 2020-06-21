@@ -1,0 +1,43 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Importa bootstrap y sus dependencias jquery y popper -->
+        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+        <script src="{% static 'jquery.min.js' %}"></script>
+        <script src="{% static 'popper.min.js' %}"></script>
+        <script src="{% static 'bootstrap.min.js' %}"></script>
+
+        <title>Proyecto Final</title>
+    </head>
+
+    <body style="background-color: #222222;">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light"
+            style="background-color: #FFB6C1;">
+            <a class="navbar-brand" href="{% url 'esteganografia' %}">
+                <h5><i>Steganography</i></h5>
+            </a>
+            <button class="navbar-toggler" type="button" 
+                data-toggle="collapse" data-target="#navbarSupportedContent" 
+                aria-controls="navbarSupportedContent" aria-expanded="false" 
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+
+        <!-- Contenido de la pagina -->
+        <div class="container pt-3">
+            <div class="jumbotron shadow">
+                <h1 class="display-4">Mensaje encontrado</h1>
+                <p class="lead">{{mensaje_descifrado}}</p>
+                <hr>
+            </div>
+        </div>
+    </body>
+</html>
